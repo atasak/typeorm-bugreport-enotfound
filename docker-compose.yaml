@@ -1,0 +1,51 @@
+networks:
+  defaulttypeorm: ~
+
+volumes:
+  mariadbtypeorm:
+
+services:
+  mariadb-typeorm:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpw
+      MYSQL_ROOT_PASSWORD: testpw
+      NETWORK_ACCESS: internal
+    networks:
+      - defaulttypeorm
+    volumes:
+      - mariadbtypeorm:/var/lib/mysql
+      - ./mariadb.cnf:/etc/mysql/conf.d:Z
+
+  phpmyadmin-typeorm:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb-typeorm
+    environment:
+      - PMA_HOST=mariadb-testorm
+      - PMA_PORT=3306
+    ports:
+      - 3002:80
+    logging:
+      driver: none
+    networks:
+      - defaulttypeorm
+
+  kws-portal-typeorm:
+    build: .
+    working_dir: /var/www
+    restart: always
+    command: make start-server
+    #command: tail -F anything
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/var/www:Z
+    depends_on:
+      - mariadb-typeorm
+    networks:
+      - defaulttypeorm

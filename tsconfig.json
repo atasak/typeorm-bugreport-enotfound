@@ -1,0 +1,37 @@
+{
+    "files"          : [
+        "./src/index.ts"
+    ],
+    "compilerOptions": {
+        "outDir"                      : "./build/server",
+        "sourceMap"                   : true,
+        "experimentalDecorators"      : true,
+        "emitDecoratorMetadata"       : true,
+        "noImplicitAny"               : true,
+        "noImplicitThis"              : true,
+        "strict"                      : true,
+        "strictBindCallApply"         : true,
+        "strictFunctionTypes"         : true,
+        "strictNullChecks"            : true,
+        "strictPropertyInitialization": true,
+        "noFallthroughCasesInSwitch"  : true,
+        "noImplicitReturns"           : true,
+        "noUnusedLocals"              : true,
+        "noUnusedParameters"          : true,
+        "module"                      : "commonjs",
+        "target"                      : "es2020",
+        "rootDir"                     : "src",
+        "esModuleInterop"             : true,
+        "resolveJsonModule"           : true,
+        "lib"                         : [
+            "es2020",
+            "dom",
+            "dom.iterable"
+        ],
+        "baseUrl"                     : "./",
+        "typeRoots"                   : [
+            "./node_modules/@types"
+        ],
+        "types"                       : ["node"],
+    }
+}
